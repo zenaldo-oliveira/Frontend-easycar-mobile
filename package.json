@@ -1,6 +1,11 @@
 {
   "name": "easycar-mobile",
   "version": "1.0.0",
+  "author": "Zenaldo Pereira de Oliveira",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenaldo-oliveira/easycar-mobile.git"
+  },
   "main": "index.js",
   "scripts": {
     "start": "expo start",
