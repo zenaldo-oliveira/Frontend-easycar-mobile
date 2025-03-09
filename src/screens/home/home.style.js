@@ -14,8 +14,8 @@ export const styles = {
     height: 160,
   },
   title: {
-    color: "#fff",
-    fontSize: 22,
+    color: "white",
+    fontSize: 24,
     fontWeight: "bold",
   },
   text: {

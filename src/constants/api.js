@@ -2,7 +2,6 @@ import axios from "axios";
 import { Alert } from "react-native";
 
 const api = axios.create({
-  //baseURL: "http://ip-do-seu-computador:3001",
   baseURL: "http://192.168.18.11:3001",
   timeout: 10000,
 });

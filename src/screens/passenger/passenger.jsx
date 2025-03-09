@@ -12,8 +12,8 @@ import icons from "../../constants/icons.js";
 import { styles } from "./passenger.style.js";
 
 function Passenger(props) {
-  const userId = 1; // id. do usuario logado no app (vem do login)
-  const [myLocation, setMyLocation] = useState({});
+  const userId = 1; // ID do usuário logado (simulado)
+  const [myLocation, setMyLocation] = useState(null);
   const [title, setTitle] = useState("");
   const [pickupAddress, setPickupAddress] = useState("");
   const [dropoffAddress, setDropoffAddress] = useState("");
@@ -76,12 +76,10 @@ function Passenger(props) {
   }
 
   async function LoadScreen() {
-    // buscar dados de corrida aberta na API para o usuario...
     const response = await RequestRideFromUser();
 
     if (!response.ride_id) {
-      const location = { latitude: -23.561747, longitude: -46.656244 };
-      //const location = await RequestPermissionAndGetLocation();
+      const location = await RequestPermissionAndGetLocation();
 
       if (location.latitude) {
         setTitle("Encontre a sua carona agora");
@@ -109,6 +107,11 @@ function Passenger(props) {
   }
 
   async function AskForRide() {
+    if (!myLocation) {
+      Alert.alert("Localização ainda não carregada!");
+      return;
+    }
+
     try {
       const json = {
         passenger_user_id: userId,
@@ -139,6 +142,7 @@ function Passenger(props) {
   async function FinishRide() {
     const json = {
       passenger_user_id: userId,
+      ride_id: rideId,
     };
 
     try {
@@ -156,7 +160,7 @@ function Passenger(props) {
 
   return (
     <View style={styles.container}>
-      {myLocation.latitude ? (
+      {myLocation ? (
         <>
           <MapView
             style={styles.map}
@@ -179,6 +183,7 @@ function Passenger(props) {
               style={styles.marker}
             />
           </MapView>
+
           <View style={styles.footer}>
             <View style={styles.footerText}>
               <Text>{title}</Text>
@@ -215,6 +220,7 @@ function Passenger(props) {
               </View>
             )}
           </View>
+
           {status == "" && (
             <MyButton text="CONFIRMAR" theme="default" onClick={AskForRide} />
           )}

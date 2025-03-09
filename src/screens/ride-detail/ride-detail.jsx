@@ -1,10 +1,10 @@
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
-import MyButton from "../../components/mybutton/mybutton.jsx";
+import MyButton from "../../components/mybutton/mybutton";
 import { api, HandleError } from "../../constants/api.js";
-import icons from "../../constants/icons.js";
+import icons from "../../constants/icons";
 import { styles } from "./ride-detail.style.js";
 
 function RideDetail(props) {
@@ -32,6 +32,7 @@ function RideDetail(props) {
   async function AcceptRide() {
     const json = {
       driver_user_id: userId,
+      ride_id: rideId,
     };
 
     try {
@@ -47,6 +48,7 @@ function RideDetail(props) {
   async function CancelRide() {
     const json = {
       driver_user_id: userId,
+      ride_id: rideId,
     };
 
     try {
@@ -58,6 +60,10 @@ function RideDetail(props) {
       props.navigation.goBack();
     }
   }
+
+  useEffect(() => {
+    RequestRideDetail();
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -88,6 +94,7 @@ function RideDetail(props) {
           style={styles.marker}
         />
       </MapView>
+
       <View style={styles.footer}>
         <View style={styles.footerText}>
           <Text>{title}</Text>
@@ -111,6 +118,7 @@ function RideDetail(props) {
           />
         </View>
       </View>
+
       {ride.status == "P" && (
         <MyButton text="ACEITAR" theme="default" onClick={AcceptRide} />
       )}
