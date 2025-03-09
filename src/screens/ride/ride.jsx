@@ -6,7 +6,7 @@ import icons from "../../constants/icons.js";
 import { styles } from "./ride.style.js";
 
 function Ride(props) {
-  const userId = 2; // id do usuário logado no app (vem do login)
+  const userId = 1; // id do usuário logado no app (vem do login)
   const [rides, setRides] = useState([]);
 
   function ClickRide(id) {
@@ -41,21 +41,34 @@ function Ride(props) {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity
-              style={styles.ride}
-              onPress={() => ClickRide(item.ride_id)}
-            >
-              <View style={styles.containerName}>
-                {item.driver_user_id == userId && (
-                  <Image source={icons.car} style={styles.car} />
-                )}
-                <Text style={styles.name}>{item.passenger_name}</Text>
-              </View>
-              <Text style={styles.address}>Origem: {item.pickup_address}</Text>
-              <Text style={styles.address}>
-                Destino: {item.dropoff_address}
-              </Text>
-            </TouchableOpacity>
+            <View style={styles.container}>
+              <FlatList
+                data={rides}
+                keyExtractor={(ride) => ride.ride_id}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      style={styles.ride}
+                      onPress={() => ClickRide(item.ride_id)}
+                    >
+                      <View style={styles.containerName}>
+                        {item.driver_user_id == userId && (
+                          <Image source={icons.car} style={styles.icon} />
+                        )}
+                        <Text style={styles.name}>{item.passenger_name}</Text>
+                      </View>
+                      <Text style={styles.address}>
+                        Origem: {item.pickup_address}
+                      </Text>
+                      <Text style={styles.address}>
+                        Destino: {item.dropoff_address}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+            </View>
           );
         }}
       />

@@ -12,9 +12,11 @@ export const styles = {
     color: "#8A8A8A",
   },
   car: {
-    width: 20,
+    width: 10,
     height: 20,
     margin: 3,
+    paddingBottom: 10,
+    marginRight: 20,
   },
   containerName: {
     flexDirection: "row",

@@ -16,12 +16,16 @@ function RideDetail(props) {
   async function RequestRideDetail() {
     try {
       const response = await api.get("/rides/" + rideId);
+      console.log("🚗 Detalhes da corrida recebidos:", response.data);
 
       if (response.data) {
         setRide(response.data);
         setTitle(
           response.data.passenger_name + " - " + response.data.passenger_phone
         );
+
+        // Adicionando um log para ver o estado atualizado
+        setTimeout(() => console.log("🎯 Estado atualizado:", ride), 1000);
       }
     } catch (error) {
       HandleError(error);

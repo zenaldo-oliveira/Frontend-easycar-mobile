@@ -12,7 +12,7 @@ import icons from "../../constants/icons.js";
 import { styles } from "./passenger.style.js";
 
 function Passenger(props) {
-  const userId = 1; // ID do usuário logado (simulado)
+  const userId = 2; // ID do usuário logado (simulado)
   const [myLocation, setMyLocation] = useState(null);
   const [title, setTitle] = useState("");
   const [pickupAddress, setPickupAddress] = useState("");

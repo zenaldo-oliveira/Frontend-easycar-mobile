@@ -8,8 +8,8 @@ export const styles = {
   },
   marker: {
     backgroundColor: "red",
-    height: 50,
-    width: 50,
+    height: 20,
+    width: 20,
     borderRadius: 25,
     position: "absolute",
     bottom: 20,
